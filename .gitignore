@@ -12,3 +12,6 @@ TEMP
 weight.json
 ffmpeg*
 ffprobe*
+docker/redis_conf/1master2slave3sentinel/redis-master
+docker/redis_conf/1master2slave3sentinel/redis-slave-1
+docker/redis_conf/1master2slave3sentinel/redis-slave-2

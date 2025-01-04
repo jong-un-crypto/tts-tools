@@ -18,9 +18,9 @@ services:
     volumes:
       # mapped映射配置文件和数据目录
       - ./redis-master.conf:/usr/local/etc/redis/redis.conf
-      - /opt/redis/redis-master/data:/data
+      - ./redis-master/data:/data
       - ./sentinel-main.conf:/usr/local/etc/redis/redis-sentinel.conf
-      - /opt/redis/redis-master/logs:/var/logs/redis
+      - ./redis-master/logs:/var/logs/redis
     sysctls:
       # 必要的内核参数
       net.core.somaxconn: "512"
@@ -39,9 +39,9 @@ services:
       TZ: "Asia/Shanghai"
     volumes:
       - ./redis-slave-1.conf:/usr/local/etc/redis/redis.conf
-      - /opt/redis/redis-slave-1/data:/data
+      - ./redis-slave-1/data:/data
       - ./sentinel-slave-1.conf:/usr/local/etc/redis/redis-sentinel.conf
-      - /opt/redis/redis-slave-1/logs:/var/logs/redis
+      - ./redis-slave-1/logs:/var/logs/redis
     sysctls:
       net.core.somaxconn: "512"
     command: redis-server /usr/local/etc/redis/redis.conf
@@ -59,9 +59,9 @@ services:
       TZ: "Asia/Shanghai"
     volumes:
       - ./redis-slave-2.conf:/usr/local/etc/redis/redis.conf
-      - /opt/redis/redis-slave-2/data:/data
+      - ./redis-slave-2/data:/data
       - ./sentinel-slave-2.conf:/usr/local/etc/redis/redis-sentinel.conf
-      - /opt/redis/redis-slave-2/logs:/var/logs/redis
+      - ./redis-slave-2/logs:/var/logs/redis
     sysctls:
       net.core.somaxconn: "512"
     command: redis-server /usr/local/etc/redis/redis.conf
