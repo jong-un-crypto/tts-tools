@@ -36,9 +36,13 @@ opencc==1.1.1; sys_platform == 'linux'
 python_mecab_ko; sys_platform != 'win32'
 fastapi<0.112.2
 
-Flask==2.3.2
-Flask-Cors==3.0.10
+Flask==3.1.0
+Flask-Cors==5.0.0
+Flask-Limiter==3.9.2
+Flask-RESTful==0.3.10
+Flask-SQLAlchemy==3.1.0
 APScheduler==3.11.0
+Werkzeug==3.0.0
 celery==5.4.0
 amqp==5.3.1
 PyJWT==2.8.0

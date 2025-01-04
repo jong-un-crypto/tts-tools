@@ -4,7 +4,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(BASE_DIR, 'common'))
 
-from flask import Flask
+from flask import Flask, jsonify
 from settings.default import DefaultConfig
 
 from redis.exceptions import RedisError
@@ -42,6 +42,14 @@ def create_app(config, enable_config_file=False):
     #from utils.logging import create_logger
     #create_logger(app)
 
+    # 限流器
+    from utils.limiter import limiter as lmt
+    lmt.init_app(app)
+
+    # 注册url转换器
+    from utils.converters import register_converters
+    register_converters(app)
+
     from redis.sentinel import Sentinel
     _sentinel = Sentinel(app.config['REDIS_SENTINELS'])
     app.redis_master = _sentinel.master_for(
@@ -77,8 +85,20 @@ def create_app(config, enable_config_file=False):
     from utils.middlewares import jwt_authentication
     app.before_request(jwt_authentication)
 
+    # 注册用户模块
+    from .resources.user import user_bp
+    app.register_blueprint(user_bp)
+
     return app
 
+
+@app.route('/')
+def route_map():
+    """
+    main view, 返回所有视图url
+    """
+    rules_iterator = app.url_map.iter_rules()
+    return jsonify({rule.endpoint: rule.rule for rule in rules_iterator if rule.endpoint not in ('route_map', 'static')})
 
 # 启动 Flask 服务器
 if __name__ == "__main__":
