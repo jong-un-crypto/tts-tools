@@ -12,4 +12,4 @@ source /root/miniconda3/etc/profile.d/conda.sh
 conda activate uvr5
 
 # 执行 Python 程序
-exec python schedule/main.py
+exec python app/main.py

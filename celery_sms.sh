@@ -12,4 +12,4 @@ source /root/miniconda3/etc/profile.d/conda.sh
 conda activate uvr5
 
 # 执行 Python 程序
-exec celery -A celery_tasks.main worker -l info -Q sms
+exec celery -A app.celery_tasks.main worker -l info -Q sms
