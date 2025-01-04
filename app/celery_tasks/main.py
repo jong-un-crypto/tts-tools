@@ -3,9 +3,9 @@ from celery import Celery
 from settings.default import CeleryConfig
 
 # 创建celery实例
-app = Celery('toutiao')
+app = Celery('tts')
 # 加载celery配置
 app.config_from_object(CeleryConfig)
-app.config_from_envvar('TOUTIAO_CELERY_SETTINGS', silent=True)
+app.config_from_envvar('TTS_CELERY_SETTINGS', silent=True)
 # 自动注册celery任务
 app.autodiscover_tasks(['celery_tasks.sms'])
