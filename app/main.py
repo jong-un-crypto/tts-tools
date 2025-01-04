@@ -49,17 +49,17 @@ def create_app(config, enable_config_file=False):
     app.redis_slave = _sentinel.slave_for(
         app.config['REDIS_SENTINEL_SERVICE_NAME'])
 
-    """
-    https://redis.io/docs/clients/python/
-    https://redis-py.readthedocs.io/en/stable/clustering.html
-    """
-    from redis.cluster import RedisCluster
-    from redis.cluster import ClusterNode
-    nodes = []
-    for node in app.config['REDIS_CLUSTER']:
-        nodes.append(ClusterNode(node['host'], node['port']))
-    app.redis_cluster = RedisCluster(
-        startup_nodes=nodes, password='1234')
+    # """
+    # https://redis.io/docs/clients/python/
+    # https://redis-py.readthedocs.io/en/stable/clustering.html
+    # """
+    # from redis.cluster import RedisCluster
+    # from redis.cluster import ClusterNode
+    # nodes = []
+    # for node in app.config['REDIS_CLUSTER']:
+    #     nodes.append(ClusterNode(node['host'], node['port']))
+    # app.redis_cluster = RedisCluster(
+    #     startup_nodes=nodes, password='1234')
 
     # 实现定时任务
     exec = {
