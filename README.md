@@ -1,5 +1,4 @@
-**_Guido van Rossumm_蛇叔**
-伟大的程序员必备三个优点：懒惰、暴躁和自负。
+
 ---
 
 ### Environments
