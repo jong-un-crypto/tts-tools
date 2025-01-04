@@ -42,7 +42,7 @@ Flask-Limiter==3.9.2
 Flask-RESTful==0.3.10
 Flask-SQLAlchemy==3.1.0
 APScheduler==3.11.0
-Werkzeug==3.0.0
+Werkzeug==3.1.0
 celery==5.4.0
 amqp==5.3.1
 PyJWT==2.8.0

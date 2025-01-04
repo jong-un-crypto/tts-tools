@@ -92,7 +92,6 @@ def create_app(config, enable_config_file=False):
     return app
 
 
-@app.route('/')
 def route_map():
     """
     main view, 返回所有视图url
@@ -100,7 +99,10 @@ def route_map():
     rules_iterator = app.url_map.iter_rules()
     return jsonify({rule.endpoint: rule.rule for rule in rules_iterator if rule.endpoint not in ('route_map', 'static')})
 
+
 # 启动 Flask 服务器
 if __name__ == "__main__":
     app = create_app(DefaultConfig, enable_config_file=True)
+    # 注册 route_map 路由
+    app.add_url_rule('/', 'route_map', route_map)
     app.run(debug=False)
