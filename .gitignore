@@ -1,0 +1,14 @@
+.DS_Store
+.vscode
+__pycache__
+*.pyc
+env
+runtime
+.idea
+output
+logs
+reference
+TEMP
+weight.json
+ffmpeg*
+ffprobe*
