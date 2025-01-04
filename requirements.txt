@@ -40,4 +40,9 @@ Flask==2.3.2
 Flask-Cors==3.0.10
 APScheduler==3.10.4
 celery==5.3.4
+amqp==5.1.1
+PyJWT==2.8.0
+redis==5.0.1
 watchdog
+aliyun-python-sdk-core-v3==2.13.33
+gunicorn==21.2.0

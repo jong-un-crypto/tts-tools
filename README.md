@@ -1,4 +1,5 @@
-From GPT-SoVITS
+**_Guido van Rossumm_蛇叔**
+伟大的程序员必备三个优点：懒惰、暴躁和自负。
 ---
 
 ### Environments
@@ -94,6 +95,19 @@ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ```
 
+### dev mode
+```shell
+export FLASK_ENV=development
+export TTS_WEB_SETTINGS=/path/to/config/file
+```
+### prod mode
+
+```shell
+export FLASK_ENV=production
+export TTS_WEB_SETTINGS=/path/to/config/file
+export TTS_CELERY_SETTINGS=/path/to/config/file
+```
+
 ### Note on creating samples for quality voice cloning
 
 The following post is a quote by user [Material1276 from reddit](https://www.reddit.com/r/Oobabooga/comments/1807tsl/comment/ka5l8w9/?share_id=_5hh4KJTXrEOSP0hR0hCK&utm_content=2&utm_medium=android_app&utm_name=androidcss&utm_source=share&utm_term=1)
@@ -154,3 +168,5 @@ python audio_slicer.py \
 - [gradio](https://github.com/gradio-app/gradio)
 - [faster-whisper](https://github.com/SYSTRAN/faster-whisper)
 - [FunASR](https://github.com/alibaba-damo-academy/FunASR)
+
+### Reference GPT-SoVITS

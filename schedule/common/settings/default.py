@@ -11,19 +11,6 @@ class DefaultConfig(object):
     LOGGING_FILE_MAX_BYTES = 500 * 1024 * 1024 # 500M
     LOGGING_FILE_BACKUP = 10
 
-    # flask-sqlalchemy使用的参数, 读写分离配置
-    # SQLALCHEMY_DATABASE_URI = 'mysql://root:pwd@127.0.0.1/toutiao'  # 数据库
-    SQLALCHEMY_BINDS = {
-        'sz-m1': 'mysql://root:123456@127.0.0.1:13306/toutiao',
-        'sz-s1': 'mysql://root:123456@127.0.0.1:13307/toutiao',
-        # 'masters': 'sz-m1',
-        # 'slaves':  'sz-s1',
-        # 'default': 'sz-m1'
-    }
-
-    SQLALCHEMY_TRACK_MODIFICATIONS = False  # 追踪数据的修改信号
-    SQLALCHEMY_ECHO = True
-
     # redis 3哨兵
     REDIS_SENTINELS = [
         ('172.17.0.4', '26379'), # master
@@ -52,12 +39,6 @@ class DefaultConfig(object):
 
     # rpc
     RPC_RECOMMEND = '172.17.0.134:19999'
-    ##RPC_CHATBOT = '172.17.0.59:20000'
-
-    # ES
-    ES = [
-        'http://172.22.0.2:9200'
-    ]
 
     # 七牛OSS对象存储
     QINIU_ACCESS_KEY = 'SmdtGrstU8mkcHcfLIpY-C_lHIa8brda55Qz4j30'
@@ -66,7 +47,7 @@ class DefaultConfig(object):
     QINIU_DOMAIN = 'http://pzm8w0o88.bkt.clouddn.com/'
 
     # 消息队列
-    RABBITMQ = 'amqp://python:rabbitmqpwd@localhost:5672/toutiao'
+    RABBITMQ = 'amqp://python:rabbitmqpwd@localhost:5672/tts'
 
     # <TODO> CORS调试后要修改
     CORS_ORIGINS = '*'
@@ -75,11 +56,11 @@ class DefaultConfig(object):
 class CeleryConfig(object):
     """
     Celery默认配置
-    broker_url: 指定消息队列的位置, toutiao为virtualhost, 添加一个然后放开权限
+    broker_url: 指定消息队列的位置, tts为virtualhost, 添加一个然后放开权限
     result_backend: 默认值
     task_routes: 指定队列名称为sms, direct routingkeys
     """
-    broker_url = 'amqp://admin:123456@localhost:5672/toutiao'
+    broker_url = 'amqp://admin:123456@localhost:5672/tts'
 
     task_routes = {
         'sms.*': {'queue': 'sms'},

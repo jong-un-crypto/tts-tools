@@ -1,0 +1,97 @@
+version: "3.4"
+
+x-image: &default-image redis:latest
+x-restart: &default-restart always
+x-netmode: &default-netmode host
+
+services:
+  redis1:
+    image: *default-image
+    container_name: redis-cluster-7001
+    network_mode: *default-netmode
+    restart: *default-restart
+    volumes:
+      - /opt/redis/node-7001/conf/data:/data
+      - /opt/redis/node-7001/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "7001:7001"
+      - "17001:17001"
+    environment:
+      - REDIS_PORT=7001
+      - CLUSTER_NAME=test
+
+  redis2:
+    image: *default-image
+    container_name: redis-cluster-7002
+    network_mode: *default-netmode
+    restart: *default-restart
+    volumes:
+      - /opt/redis/node-7002/conf/data:/data
+      - /opt/redis/node-7002/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "7002:7002"
+      - "17002:17002"
+    environment:
+      - REDIS_PORT=7002
+
+  redis3:
+    image: *default-image
+    container_name: redis-cluster-7003
+    network_mode: *default-netmode
+    restart: *default-restart
+    volumes:
+      - /opt/redis/node-7003/conf/data:/data
+      - /opt/redis/node-7003/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "7003:7003"
+      - "17003:17003"
+    environment:
+      - REDIS_PORT=7003
+
+  redis4:
+    image: *default-image
+    container_name: redis-cluster-7004
+    network_mode: *default-netmode
+    restart: *default-restart
+    volumes:
+      - /opt/redis/node-7004/conf/data:/data
+      - /opt/redis/node-7004/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "7004:7004"
+      - "17004:17004"
+    environment:
+      - REDIS_PORT=7004
+
+  redis5:
+    image: *default-image
+    container_name: redis-cluster-7005
+    network_mode: *default-netmode
+    restart: *default-restart
+    volumes:
+      - /opt/redis/node-7005/conf/data:/data
+      - /opt/redis/node-7005/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "7005:7005"
+      - "17005:17005"
+    environment:
+      - REDIS_PORT=7005
+
+  redis6:
+    image: *default-image
+    container_name: redis-cluster-7006
+    network_mode: *default-netmode
+    restart: *default-restart
+    volumes:
+      - /opt/redis/node-7006/conf/data:/data
+      - /opt/redis/node-7006/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "7006:7006"
+      - "17006:17006"
+    environment:
+      - REDIS_PORT=7006

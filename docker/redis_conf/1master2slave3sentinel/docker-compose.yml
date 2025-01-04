@@ -1,0 +1,67 @@
+version: "3.4"
+services:
+  # master的容器
+  redis-server-master:
+    build:
+      # 为了规避Docker中端口映射可能带来的问题
+      # 这里选择使用host网络,不然哨兵无法连通
+      network: host
+    image: redis:latest
+    container_name: redis-server-master
+    restart: always
+    ports:
+      - "6379:6379"
+      - "26379:26379"
+    # 指定时区，保证容器内时间正确
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      # mapped映射配置文件和数据目录
+      - ./redis-master.conf:/usr/local/etc/redis/redis.conf
+      - /opt/redis/redis-master/data:/data
+      - ./sentinel-main.conf:/usr/local/etc/redis/redis-sentinel.conf
+      - /opt/redis/redis-master/logs:/var/logs/redis
+    sysctls:
+      # 必要的内核参数
+      net.core.somaxconn: "512"
+    command: redis-server /usr/local/etc/redis/redis.conf
+  # slave1的容器
+  redis-server-slave-1:
+    build:
+      network: host
+    image: redis:latest
+    container_name: redis-server-slave-1
+    restart: always
+    ports:
+      - "6380:6380"
+      - "26380:26380"
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      - ./redis-slave-1.conf:/usr/local/etc/redis/redis.conf
+      - /opt/redis/redis-slave-1/data:/data
+      - ./sentinel-slave-1.conf:/usr/local/etc/redis/redis-sentinel.conf
+      - /opt/redis/redis-slave-1/logs:/var/logs/redis
+    sysctls:
+      net.core.somaxconn: "512"
+    command: redis-server /usr/local/etc/redis/redis.conf
+  # slave2的容器
+  redis-server-slave-2:
+    build:
+      network: host
+    image: redis:latest
+    container_name: redis-server-slave-2
+    restart: always
+    ports:
+      - "6381:6381"
+      - "26381:26381"
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      - ./redis-slave-2.conf:/usr/local/etc/redis/redis.conf
+      - /opt/redis/redis-slave-2/data:/data
+      - ./sentinel-slave-2.conf:/usr/local/etc/redis/redis-sentinel.conf
+      - /opt/redis/redis-slave-2/logs:/var/logs/redis
+    sysctls:
+      net.core.somaxconn: "512"
+    command: redis-server /usr/local/etc/redis/redis.conf

@@ -7,6 +7,8 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'common'))
 from flask import Flask
 from settings.default import DefaultConfig
 
+from redis.exceptions import RedisError
+
 # 导入定时任务模块
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.executors.pool import ThreadPoolExecutor
@@ -40,6 +42,25 @@ def create_app(config, enable_config_file=False):
     #from utils.logging import create_logger
     #create_logger(app)
 
+    from redis.sentinel import Sentinel
+    _sentinel = Sentinel(app.config['REDIS_SENTINELS'])
+    app.redis_master = _sentinel.master_for(
+        app.config['REDIS_SENTINEL_SERVICE_NAME'])
+    app.redis_slave = _sentinel.slave_for(
+        app.config['REDIS_SENTINEL_SERVICE_NAME'])
+
+    """
+    https://redis.io/docs/clients/python/
+    https://redis-py.readthedocs.io/en/stable/clustering.html
+    """
+    from redis.cluster import RedisCluster
+    from redis.cluster import ClusterNode
+    nodes = []
+    for node in app.config['REDIS_CLUSTER']:
+        nodes.append(ClusterNode(node['host'], node['port']))
+    app.redis_cluster = RedisCluster(
+        startup_nodes=nodes, password='1234')
+
     # 实现定时任务
     exec = {
         'default': ThreadPoolExecutor(max_workers=1)
@@ -51,6 +72,10 @@ def create_app(config, enable_config_file=False):
     app.scheduler.add_job(fix_audio, 'interval', minutes=1, args=[app])
     # 启动定时任务
     app.scheduler.start()
+
+    # # 添加请求钩子
+    from utils.middlewares import jwt_authentication
+    app.before_request(jwt_authentication)
 
     return app
 
