@@ -47,5 +47,6 @@ celery==5.4.0
 amqp==5.3.1
 PyJWT==2.8.0
 redis==5.2.1
+qiniu==7.15.0
 watchdog
 gunicorn==23.0.0

@@ -7,13 +7,12 @@ from datetime import datetime, timedelta
 from redis.exceptions import ConnectionError
 
 from celery_tasks.sms.tasks import send_verification_code
-from . import constants
+from utils import constants
 from utils import validate
 
 from utils.jwt_util import generate_jwt
 # from cache import user as cache_user
 from utils.limiter import limiter as lmt
-
 
 class SMSVerificationCodeResource(Resource):
     """

@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask_restful.reqparse import RequestParser
-from utils import parser
+from utils import validate
 from flask import g, current_app
 from flask_restful import inputs
 
@@ -35,13 +35,13 @@ class PhotoResource(Resource):
     def patch(self):
         file_parser = RequestParser()
         file_parser.add_argument(
-            'photo', type=parser.image_file, required=False, location='files')
+            'photo', type=validate.image_file, required=False, location='files')
         file_parser.add_argument(
-            'id_card_front', type=parser.image_file, required=False, location='files')
+            'id_card_front', type=validate.image_file, required=False, location='files')
         file_parser.add_argument(
-            'id_card_back', type=parser.image_file, required=False, location='files')
+            'id_card_back', type=validate.image_file, required=False, location='files')
         file_parser.add_argument(
-            'id_card_handheld', type=parser.image_file, required=False, location='files')
+            'id_card_handheld', type=validate.image_file, required=False, location='files')
         files = file_parser.parse_args()
 
         user_id = g.user_id
@@ -168,23 +168,23 @@ class ProfileResource(Resource):
         json_parser.add_argument('name', type=inputs.regex(
             r'^.{1,7}$'), required=False, location='json')
         json_parser.add_argument(
-            'photo', type=parser.image_base64, required=False, location='json')
+            'photo', type=validate.image_base64, required=False, location='json')
         json_parser.add_argument(
             'gender', type=self._gender, required=False, location='json')
         json_parser.add_argument(
-            'birthday', type=parser.date, required=False, location='json')
+            'birthday', type=validate.date, required=False, location='json')
         json_parser.add_argument('intro', type=inputs.regex(
             r'^.{0,60}$'), required=False, location='json')
         json_parser.add_argument('real_name', type=inputs.regex(
             r'^.{1,7}$'), required=False, location='json')
         json_parser.add_argument(
-            'id_number', type=parser.id_number, required=False, location='json')
+            'id_number', type=validate.id_number, required=False, location='json')
         json_parser.add_argument(
-            'id_card_front', type=parser.image_base64, required=False, location='json')
+            'id_card_front', type=validate.image_base64, required=False, location='json')
         json_parser.add_argument(
-            'id_card_back', type=parser.image_base64, required=False, location='json')
+            'id_card_back', type=validate.image_base64, required=False, location='json')
         json_parser.add_argument(
-            'id_card_handheld', type=parser.image_base64, required=False, location='json')
+            'id_card_handheld', type=validate.image_base64, required=False, location='json')
         args = json_parser.parse_args()
 
         user_id = g.user_id
